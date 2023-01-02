@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { interval, Observable } from 'rxjs';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { map, fromEvent, interval, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-stockticker',
@@ -8,11 +8,25 @@ import { interval, Observable } from 'rxjs';
 })
 export class StocktickerComponent {
 
-  number$: Observable<any>;
+  number$: Observable<Number>;
+  search$: Observable<String>;
+
+  @ViewChild('searchInput') input: ElementRef;
 
   ngOnInit() {
 
     this.number$ = interval(3000);
+
+
+  }
+
+  ngAfterViewInit() {
+
+    const inputObservable$: Observable<String> = fromEvent(this.input.nativeElement, 'keyup')
+      .pipe(
+        map((event: any) => event.target.value));
+
+    this.search$ = inputObservable$;
 
   }
 
