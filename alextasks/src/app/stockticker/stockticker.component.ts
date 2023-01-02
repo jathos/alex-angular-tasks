@@ -24,7 +24,7 @@ export class StocktickerComponent {
 
     const inputObservable$: Observable<String> = fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
-        map((event: any) => event.target.value));
+        map((event: any) => event.target.value.toLowerCase()));
 
     this.search$ = inputObservable$;
 
