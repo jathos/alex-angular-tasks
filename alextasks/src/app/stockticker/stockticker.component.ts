@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { map, fromEvent, interval, Observable } from 'rxjs';
+import { map, fromEvent, interval, Observable, delay } from 'rxjs';
 
 @Component({
   selector: 'app-stockticker',
@@ -24,7 +24,9 @@ export class StocktickerComponent {
 
     const inputObservable$: Observable<String> = fromEvent(this.input.nativeElement, 'keyup')
       .pipe(
-        map((event: any) => event.target.value.toLowerCase()));
+        map((event: any) => event.target.value.toLowerCase()),
+        delay(500)
+      );
 
     this.search$ = inputObservable$;
 
