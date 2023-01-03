@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { map, fromEvent, interval, Observable, delay, distinctUntilChanged, startWith } from 'rxjs';
+import { of, timer, concatMap, map, fromEvent, interval, Observable, delay, distinctUntilChanged, startWith } from 'rxjs';
 
 @Component({
   selector: 'app-stockticker',
@@ -8,15 +8,17 @@ import { map, fromEvent, interval, Observable, delay, distinctUntilChanged, star
 })
 export class StocktickerComponent {
 
-  number$: Observable<Number>;
+  number$: Observable<String>;
   search$: Observable<String>;
 
   @ViewChild('searchInput') input: ElementRef;
 
   ngOnInit() {
 
-    this.number$ = interval(3000);
-
+    this.number$ = interval(3000).pipe(
+      map(() => "$" + `${Math.random() * 100}`),
+      distinctUntilChanged()
+    );
 
   }
 
