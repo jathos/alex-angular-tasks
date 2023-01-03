@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StocktickerComponent } from './stockticker/stockticker.component';
+import { MessageboardComponent } from './messageboard/messageboard.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StocktickerComponent
+    StocktickerComponent,
+    MessageboardComponent
   ],
   imports: [
     BrowserModule,

@@ -8,8 +8,9 @@ import { of, timer, concatMap, map, fromEvent, interval, Observable, delay, dist
 })
 export class StocktickerComponent {
 
-  number$: Observable<String>;
-  search$: Observable<String>;
+  number$: Observable<string>;
+  search$: Observable<string>;
+  messages$: Observable<string[]>;
 
   @ViewChild('searchInput') input: ElementRef;
 
@@ -18,6 +19,17 @@ export class StocktickerComponent {
     this.number$ = interval(3000).pipe(
       map(() => "$" + `${Math.random() * 100}`),
       distinctUntilChanged()
+    );
+
+    let messageArray: string[] = ["Hello"];
+
+    setInterval(() => messageArray.push("Hello Again!"), 3000);
+
+    this.messages$ = interval(12000).pipe(
+      map(() => {
+        const currentMessages = [...messageArray];
+        return currentMessages
+      })
     );
 
   }
